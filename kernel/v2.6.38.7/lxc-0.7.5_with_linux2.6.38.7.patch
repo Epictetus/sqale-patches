@@ -1,0 +1,11 @@
+--- src/lxc/namespace.c.org	2012-02-01 18:39:53.614352073 +0900
++++ src/lxc/namespace.c	2012-02-01 18:40:03.542353935 +0900
+@@ -106,7 +106,7 @@
+ 	}
+ 
+ 	for (i = 0; i < size; i++) {
+-		if (setns(fd[i], 0)) {
++		if (setns(0, fd[i])) {
+ 			SYSERROR("failed to set namespace '%s'", ns[i]);
+ 			return -1;
+ 		}

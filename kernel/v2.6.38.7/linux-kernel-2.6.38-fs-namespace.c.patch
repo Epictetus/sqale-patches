@@ -1,0 +1,11 @@
+--- fs/namespace.c.org	2012-04-02 15:30:16.607560455 +0900
++++ fs/namespace.c	2012-04-02 15:30:19.465564034 +0900
+@@ -2670,7 +2670,7 @@
+ 	struct mnt_namespace *mnt_ns = ns;
+ 	struct path root;
+ 
+-	if (fs->users != 1)
++	if (atomic_read(&fs->users) != 1)
+ 		return -EINVAL;
+ 
+ 	get_mnt_ns(mnt_ns);
