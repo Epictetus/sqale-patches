@@ -6,7 +6,7 @@ index 1b5096a..ff8f306 100644
  	unsigned short snum;
  	int chk_addr_ret;
  	int err;
-+	int prot_sock;
++	unsigned short prot_sock;
  
  	/* If the socket has its own bind function then use it. (RAW) */
  	if (sk->sk_prot->bind) {
@@ -15,7 +15,7 @@ index 1b5096a..ff8f306 100644
  		goto out;
  
 +	if ( sock->type == SOCK_DGRAM ) {
-+		prot_sock = 1024;
++		prot_sock = 1024 + 1;
 +	} else {
 +		prot_sock = PROT_SOCK;
 +	}
@@ -23,7 +23,7 @@ index 1b5096a..ff8f306 100644
  	snum = ntohs(addr->sin_port);
  	err = -EACCES;
 -	if (snum && snum < PROT_SOCK && !capable(CAP_NET_BIND_SERVICE))
-+	if (snum && snum < prot_sock && !capable(CAP_NET_BIND_SERVICE))
++	if (snum && snum <= prot_sock && !capable(CAP_NET_BIND_SERVICE))
  		goto out;
  
  	/*      We keep a pair of addresses. rcv_saddr is the one

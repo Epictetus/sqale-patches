@@ -7,7 +7,7 @@ index 87a1dbc..f7bcd4d 100644
  
  /* Sockets 0-1023 can't be bound to unless you are superuser */
 -#define PROT_SOCK	1024
-+#define PROT_SOCK	65536
++#define PROT_SOCK	65535
  
  #define SHUTDOWN_MASK	3
  #define RCV_SHUTDOWN	1
