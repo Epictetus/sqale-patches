@@ -1,16 +1,18 @@
 Name: kernel
 Summary: The Linux Kernel
 Version: 3.2.16_grsec
-Release: 1
+Release: 3
 License: GPL
 Group: System Environment/Kernel
 Vendor: The Linux Community
 URL: http://www.kernel.org
-Source: kernel-3.2.16_grsec.tar.gz
+Source0: kernel-3.2.16_grsec.tar.gz
+Source1: config-3.2.16-grsec
 BuildRoot: %{_tmppath}/%{name}-%{PACKAGE_VERSION}-root
 Provides:  kernel-3.2.16-grsec
 Patch0: increase_prot_sock.patch
 Patch1: change_prot_sock_in_case_of_udp.patch
+Patch2: cgroup_fork.patch
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
 
@@ -33,6 +35,8 @@ glibc package.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+cp %{_sourcedir}/config-3.2.16-grsec ./.config
 
 %build
 make clean && make %{?_smp_mflags}
